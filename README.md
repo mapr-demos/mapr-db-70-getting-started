@@ -56,7 +56,7 @@ where "container-id" can be obtained from the `docker ps` command.
 
 There are two ways to put data into the MapR filesystem, called MapR-XD.
 
-- Simple copy, if [**MapR NFS**](https://maprdocs.mapr.com/home/AdministratorGuide/AccessDataWithNFS.html) is installed and the cluster is mounted at `/mapr`. 
+- Simple copy, if [**MapR NFS**](https://docs.datafabric.hpe.com/70/AdministratorGuide/AccessDataWithNFS.html) is installed and the cluster is mounted at `/mapr`.
 ```
 $ cp business.json review.json user.json /mapr/<cluster-name>/tmp/
 ```
@@ -68,7 +68,7 @@ hadoop fs -put business.json review.json user.json /tmp/
 
 #### 4. Import the JSON documents into MapR-DB JSON tables
 
-We will import the Yelp JSON documents into MapR-DB JSON tables using the [mapr importJSON](https://maprdocs.mapr.com/home/ReferenceGuide/mapr_importjson.html?hl=importjson) command. Note, the source file path specified in `mapr importJSON` must be a valid path in the MapR filesystem. 
+We will import the Yelp JSON documents into MapR-DB JSON tables using the [mapr importJSON](https://docs.datafabric.hpe.com/70/ReferenceGuide/mapr_importjson.html) command. Note, the source file path specified in `mapr importJSON` must be a valid path in the MapR filesystem.
 
 ```
 $ mapr importJSON -idField business_id -src /tmp/business.json -dst /apps/business -mapreduce false
@@ -76,12 +76,12 @@ $ mapr importJSON -idField review_id -src /tmp/review.json -dst /apps/review -ma
 $ mapr importJSON -idField user_id -src /tmp/user.json -dst /apps/user -mapreduce false
 ```
 
-> Refer to [**Loading Documents in to JSON Tables**](https://maprdocs.mapr.com/home/MapR-DB/JSON_DB/loading_documents_into_json_tables.html) for more details.
+> Refer to [**Loading Documents in to JSON Tables**](https://docs.datafabric.hpe.com/70/MapR-DB/JSON_DB/loading_documents_into_json_tables.html) for more details.
 
 You have now 3 JSON tables, let's query these tables using SQL with Apache Drill.
 
 #### 5. Give user permissions / public permissions to allow read / write.
-MapR-DB JSON tables allow us to set permissions in order restrict access to data. You can find more information [**here**](https://maprdocs.mapr.com/home/SecurityGuide/EnablingTableAuthorizations.html).
+MapR-DB JSON tables allow us to set permissions in order restrict access to data. You can find more information [**here**](https://docs.datafabric.hpe.com/70/SecurityGuide/EnablingTableAuthorizations.html).
 
 To make it simple for now we'll just set `readperm` and `writeperm` to `public` access. This means that anyone can read from table and write to the table. We'll apply this change to the `default` column family because all of the data in our case resides in default cf.
 
@@ -91,7 +91,7 @@ $ maprcli table cf edit -path /apps/review -cfname default -readperm p -writeper
 $ maprcli table cf edit -path /apps/user -cfname default -readperm p -writeperm p
 ```
 
-> Refer to [**table cf edit command**](https://maprdocs.mapr.com/home/ReferenceGuide/table-cf-edit.html) for more details about the CLI command.
+> Refer to [**table cf edit command**](https://docs.datafabric.hpe.com/70/ReferenceGuide/table-cf-edit.html) for more details about the CLI command.
 
 
 ## MapR DB Shell
